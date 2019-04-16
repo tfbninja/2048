@@ -11,7 +11,7 @@ public class Square {
     public static int[] MIN_VALUES = {2, 4};
 
     public Square() {
-        value = MIN_VALUES[0];
+        value = MIN_VALUES[(int) (Math.random() * MIN_VALUES.length)];
     }
 
     public Square(int value) {
@@ -29,6 +29,10 @@ public class Square {
         if (value > MIN_VALUES[0]) {
             this.value = val;
         }
+    }
+
+    public void dbl() { // double, but can't name it a primitive
+        this.value *= 2;
     }
 
     public int combine(Square other) {

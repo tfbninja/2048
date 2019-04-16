@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.animation.AnimationTimer;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -14,22 +16,29 @@ import javafx.stage.Stage;
  */
 public class Runner_2048 extends Application {
 
+    private int frame = 0;
+    private Graphics g;
+
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction((ActionEvent event) -> {
-            System.out.println("Hello World!");
-        });
-
+        g = new Graphics(new Grid(4, 4));
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        root.getChildren().add(g.getCanvas());
 
         Scene scene = new Scene(root, 600, 800);
 
         primaryStage.setTitle("2048");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                frame++;
+                g.draw();
+            }
+
+        }.start();
     }
 
     /**
