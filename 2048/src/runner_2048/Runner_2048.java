@@ -1,12 +1,11 @@
 package runner_2048;
 
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.animation.AnimationTimer;
-
-import javafx.scene.control.Button;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -16,8 +15,8 @@ import javafx.stage.Stage;
  */
 public class Runner_2048 extends Application {
 
-    private int frame = 0;
-    private Graphics g;
+    private static int frame = 0;
+    private static Graphics g;
 
     @Override
     public void start(Stage primaryStage) {
@@ -39,6 +38,35 @@ public class Runner_2048 extends Application {
             }
 
         }.start();
+
+        // Input handling
+        scene.setOnMousePressed((MouseEvent event) -> {
+            newGame();
+        });
+
+        scene.setOnMouseDragged(
+                (MouseEvent event) -> {
+                }
+        );
+
+        scene.setOnMouseReleased(
+                (MouseEvent event) -> {
+                }
+        );
+
+        scene.setOnKeyPressed(
+                (KeyEvent eventa) -> {
+                    if (eventa.getCode() == KeyCode.RIGHT) {
+                        g.getGrid().shiftRight();
+                    } else if (eventa.getCode() == KeyCode.LEFT) {
+                        g.getGrid().shiftLeft();
+                    } else if (eventa.getCode() == KeyCode.UP) {
+                        g.getGrid().shiftUp();
+                    } else if (eventa.getCode() == KeyCode.DOWN) {
+                        g.getGrid().shiftDown();
+                    }
+                }
+        );
     }
 
     /**
@@ -46,6 +74,11 @@ public class Runner_2048 extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void newGame() {
+        frame = 0;
+        g.setGrid(new Grid(4, 4));
     }
 
 }

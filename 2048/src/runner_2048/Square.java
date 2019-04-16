@@ -8,7 +8,7 @@ public class Square {
 
     private int value;
 
-    public static int[] MIN_VALUES = {2, 4};
+    public static int[] MIN_VALUES = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4};
 
     public Square() {
         value = MIN_VALUES[(int) (Math.random() * MIN_VALUES.length)];
