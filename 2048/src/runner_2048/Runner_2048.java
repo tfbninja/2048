@@ -21,6 +21,10 @@ public class Runner_2048 extends Application {
     @Override
     public void start(Stage primaryStage) {
         g = new Graphics(new Grid(4, 4));
+        Square[][] test = {{new Square(), new Square(), new Square(), null}, {null, null, null, null}, {null, null, null, null}, {null, null, null, null}};
+        Grid temp = new Grid(4, 4);
+        temp.setSquares(test);
+        g.setGrid(temp);
         StackPane root = new StackPane();
         root.getChildren().add(g.getCanvas());
 

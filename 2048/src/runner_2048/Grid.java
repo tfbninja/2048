@@ -1,6 +1,8 @@
 package runner_2048;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import javafx.util.Pair;
 
 /**
  *
@@ -8,9 +10,9 @@ import java.util.ArrayList;
  */
 public class Grid {
 
-    private final Square[][] squares;
-    public final int w;
-    public final int h;
+    private Square[][] squares;
+    public int w;
+    public int h;
     private int score = 0;
 
     public Grid(int w, int h) {
@@ -55,6 +57,10 @@ public class Grid {
         squares[h2][w2] = new Square();
     }
 
+    public void setSquares(Square[][] s) {
+        squares = s;
+    }
+
     public Square[] getRow(int index) {
         return squares[index];
     }
@@ -78,12 +84,11 @@ public class Grid {
     public void removeAndDoubleDupes(ArrayList<Square> list) {
         removeNull(list);
         if (list.size() > 1) {
-            for (int i = 0; i < list.size() - 1; i++) {
-                if (list.get(i).getValue() == list.get(i + 1).getValue()) {
+            for (int i = list.size() - 1; i > 0; i--) {
+                if (list.get(i).getValue() == list.get(i - 1).getValue()) {
                     list.get(i).dbl();
                     score += list.get(i).getValue();
-                    list.remove(i + 1);
-                    i--;
+                    list.remove(i - 1);
                 }
             }
         }
@@ -109,14 +114,43 @@ public class Grid {
             for (int i = 0; i < row.size(); i++) {
                 squares[r][squares[r].length - row.size() + i] = row.get(i);
             }
-            if (before != squares) {
-                // add square
+        }
+        // check equality
+        boolean same = true;
+        for (int _r = 0; _r < h; _r++) {
+            for (int _c = 0; _c < w; _c++) {
+                if (before[_r][_c] == null) {
+                    same = same && squares[_r][_c] == null;
+                } else if (squares[_r][_c] == null) {
+                    same = false;
+                } else {
+                    same = same && squares[_r][_c].getValue() == before[_r][_c].getValue();
+                }
 
+            }
+        }
+        if (!same) {
+            // add square
+            ArrayList<Pair<Integer, Integer>> spots = new ArrayList<>();
+            for (int _r = 0; _r < h; _r++) {
+                for (int _c = 0; _c < w; _c++) {
+                    if (squares[_r][_c] == null) {
+                        spots.add(new Pair<>(_r, _c));
+                    }
+                }
+            }
+            if (spots.size() > 0) {
+                // add square
+                Collections.shuffle(spots);
+                squares[spots.get(0).getKey()][spots.get(0).getValue()] = new Square();
+            } else {
+                // game over
             }
         }
     }
 
     public void shiftLeft() {
+        Square[][] before = squares.clone();
         for (int r = 0; r < h; r++) {
             ArrayList<Square> row = new ArrayList<>();
             for (Square s : squares[r]) {
@@ -128,9 +162,42 @@ public class Grid {
                 squares[r][i] = row.get(i);
             }
         }
+        // check equality
+        boolean same = true;
+        for (int _r = 0; _r < h; _r++) {
+            for (int _c = 0; _c < w; _c++) {
+                if (before[_r][_c] == null) {
+                    same = same && squares[_r][_c] == null;
+                } else if (squares[_r][_c] == null) {
+                    same = false;
+                } else {
+                    same = same && squares[_r][_c].getValue() == before[_r][_c].getValue();
+                }
+
+            }
+        }
+        if (!same) {
+            // add square
+            ArrayList<Pair<Integer, Integer>> spots = new ArrayList<>();
+            for (int _r = 0; _r < h; _r++) {
+                for (int _c = 0; _c < w; _c++) {
+                    if (squares[_r][_c] == null) {
+                        spots.add(new Pair<>(_r, _c));
+                    }
+                }
+            }
+            if (spots.size() > 0) {
+                // add square
+                Collections.shuffle(spots);
+                squares[spots.get(0).getKey()][spots.get(0).getValue()] = new Square();
+            } else {
+                // game over
+            }
+        }
     }
 
     public void shiftDown() {
+        Square[][] before = squares.clone();
         for (int c = 0; c < w; c++) {
             ArrayList<Square> col = new ArrayList<>();
             for (Square s : getColumn(c)) {
@@ -144,9 +211,42 @@ public class Grid {
                 squares[h - col.size() + i][c] = col.get(i);
             }
         }
+        // check equality
+        boolean same = true;
+        for (int _r = 0; _r < h; _r++) {
+            for (int _c = 0; _c < w; _c++) {
+                if (before[_r][_c] == null) {
+                    same = same && squares[_r][_c] == null;
+                } else if (squares[_r][_c] == null) {
+                    same = false;
+                } else {
+                    same = same && squares[_r][_c].getValue() == before[_r][_c].getValue();
+                }
+
+            }
+        }
+        if (!same) {
+            // add square
+            ArrayList<Pair<Integer, Integer>> spots = new ArrayList<>();
+            for (int _r = 0; _r < h; _r++) {
+                for (int _c = 0; _c < w; _c++) {
+                    if (squares[_r][_c] == null) {
+                        spots.add(new Pair<>(_r, _c));
+                    }
+                }
+            }
+            if (spots.size() > 0) {
+                // add square
+                Collections.shuffle(spots);
+                squares[spots.get(0).getKey()][spots.get(0).getValue()] = new Square();
+            } else {
+                // game over
+            }
+        }
     }
 
     public void shiftUp() {
+        Square[][] before = squares.clone();
         for (int c = 0; c < w; c++) {
             ArrayList<Square> col = new ArrayList<>();
             for (Square s : getColumn(c)) {
@@ -158,6 +258,38 @@ public class Grid {
             }
             for (int i = 0; i < col.size(); i++) {
                 squares[col.size() - (1 + i)][c] = col.get(i);
+            }
+        }
+        // check equality
+        boolean same = true;
+        for (int _r = 0; _r < h; _r++) {
+            for (int _c = 0; _c < w; _c++) {
+                if (before[_r][_c] == null) {
+                    same = same && squares[_r][_c] == null;
+                } else if (squares[_r][_c] == null) {
+                    same = false;
+                } else {
+                    same = same && squares[_r][_c].getValue() == before[_r][_c].getValue();
+                }
+
+            }
+        }
+        if (!same) {
+            // add square
+            ArrayList<Pair<Integer, Integer>> spots = new ArrayList<>();
+            for (int _r = 0; _r < h; _r++) {
+                for (int _c = 0; _c < w; _c++) {
+                    if (squares[_r][_c] == null) {
+                        spots.add(new Pair<>(_r, _c));
+                    }
+                }
+            }
+            if (spots.size() > 0) {
+                // add square
+                Collections.shuffle(spots);
+                squares[spots.get(0).getKey()][spots.get(0).getValue()] = new Square();
+            } else {
+                // game over
             }
         }
     }

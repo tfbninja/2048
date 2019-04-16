@@ -66,9 +66,9 @@ public class Graphics {
             int c = 0;
             for (Square s : grid.getRow(r)) {
                 if (s != null) {
-                    gc.setFill(NUMBER_BGCOLORS[(int) (Math.log(s.getValue()) / Math.log(2))]);
+                    gc.setFill(NUMBER_BGCOLORS[(int) (Math.log(s.getValue()) / Math.log(2)) % (NUMBER_BGCOLORS.length - 1) + 1]);
                     gc.fillRoundRect(BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c, BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r, SQUARE_SIZE, SQUARE_SIZE, SQUARE_RADIUS, SQUARE_RADIUS);
-                    gc.setFill(NUMBER_COLORS[(int) (Math.log(s.getValue()) / Math.log(2))]);
+                    gc.setFill(NUMBER_COLORS[(int) (Math.log(s.getValue()) / Math.log(2)) % (NUMBER_COLORS.length - 1) + 1]);
                     gc.setFont(new Font("Calibri bold", 48.0));
                     gc.fillText(String.valueOf(s.getValue()), BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c + NUMBER_X_ADD[String.valueOf(s.getValue()).length() - 1], BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r + NUMBER_Y_ADD[String.valueOf(s.getValue()).length() - 1] + gc.getFont().getSize());
                 } else {
