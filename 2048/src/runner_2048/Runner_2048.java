@@ -109,15 +109,19 @@ public class Runner_2048 extends Application {
         scene.setOnKeyReleased((KeyEvent eventa) -> {
             if (null != eventa.getCode()) {
                 switch (eventa.getCode()) {
+                    case D:
                     case RIGHT:
                         keyUpR = true;
                         break;
+                    case A:
                     case LEFT:
                         keyUpL = true;
                         break;
+                    case W:
                     case UP:
                         keyUpU = true;
                         break;
+                    case S:
                     case DOWN:
                         keyUpD = true;
                         break;
@@ -130,6 +134,7 @@ public class Runner_2048 extends Application {
         scene.setOnKeyPressed((KeyEvent eventa) -> {
             if (null != eventa.getCode()) {
                 switch (eventa.getCode()) {
+                    case D:
                     case RIGHT:
                         if (keyUpR) {
                             g.getGrid().shiftRight();
@@ -137,6 +142,7 @@ public class Runner_2048 extends Application {
                             keyUpR = false;
                         }
                         break;
+                    case A:
                     case LEFT:
                         if (keyUpL) {
                             g.getGrid().shiftLeft();
@@ -144,6 +150,7 @@ public class Runner_2048 extends Application {
                             keyUpL = false;
                         }
                         break;
+                    case W:
                     case UP:
                         if (keyUpU) {
                             g.getGrid().shiftUp();
@@ -151,6 +158,7 @@ public class Runner_2048 extends Application {
                             keyUpU = false;
                         }
                         break;
+                    case S:
                     case DOWN:
                         if (keyUpD) {
                             g.getGrid().shiftDown();
