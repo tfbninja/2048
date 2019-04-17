@@ -19,10 +19,10 @@ public class Graphics {
     public static final double BORDER_Y = EDGE_MARGIN + 187;
 
     public static final double BUTTON_MARGINS = 20;
-    public static final double[] NUMBER_X_ADD = {39, 27, 20, 12, 3};
-    public static final double[] NUMBER_Y_ADD = {22, 22, 27, 24};
-    public static final double[] SCORE_X_ADD = {68, 60, 53, 45, 37, 44, 39};
-    public static final double[] NUMBER_FONT_SIZE = {48, 48, 44, 40, 36};
+    public static final double[] NUMBER_X_ADD = {39, 27, 20, 12, 7, 4};
+    public static final double[] NUMBER_Y_ADD = {22, 22, 25, 24, 29, 31, 33};
+    public static final double[] SCORE_X_ADD = {68, 60, 54, 45, 37, 30, 22};
+    public static final double[] NUMBER_FONT_SIZE = {48, 48, 44, 40, 36, 30, 28};
 
     public static final double BORDER_MARGIN = 15;
     public static final double BORDER_RADIUS = 15;
@@ -102,8 +102,8 @@ public class Graphics {
 
         gc.setFill(SCORE_COLOR);
         gc.setFont(new Font("Calibri bold", 25));
-        gc.fillText("SCORE", BORDER_X + (BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS + 45, 30 + EDGE_MARGIN);
-        gc.fillText("BEST", BORDER_X + ((BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS) * 2 + 45, 30 + EDGE_MARGIN);
+        gc.fillText("SCORE", BORDER_X + (BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS + 42, 30 + EDGE_MARGIN);
+        gc.fillText("BEST", BORDER_X + ((BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS) * 2 + 50, 30 + EDGE_MARGIN);
 
         gc.setFill(NUMBER_COLORS[3]);
         gc.setFont(new Font("Calibri bold", 30));
@@ -130,7 +130,11 @@ public class Graphics {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         gc.setFont(new Font("Calibri bold", NUMBER_FONT_SIZE[NUMBER_FONT_SIZE.length - 1]));
                     }
-                    gc.fillText(String.valueOf(s.getValue()), BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c + NUMBER_X_ADD[String.valueOf(s.getValue()).length() - 1], BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r + NUMBER_Y_ADD[String.valueOf(s.getValue()).length() - 1] + gc.getFont().getSize());
+                    try {
+                        gc.fillText(String.valueOf(s.getValue()), BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c + NUMBER_X_ADD[String.valueOf(s.getValue()).length() - 1], BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r + NUMBER_Y_ADD[String.valueOf(s.getValue()).length() - 1] + gc.getFont().getSize());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        gc.fillText(String.valueOf(s.getValue()), BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c + NUMBER_X_ADD[NUMBER_X_ADD.length - 1], BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r + NUMBER_Y_ADD[NUMBER_Y_ADD.length - 1] + gc.getFont().getSize());
+                    }
                 } else {
                     gc.setFill(NUMBER_BGCOLORS[0]);
                     gc.fillRoundRect(BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c, BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r, SQUARE_SIZE, SQUARE_SIZE, SQUARE_RADIUS, SQUARE_RADIUS);
@@ -158,6 +162,13 @@ public class Graphics {
             gc.fillText("You win!", BORDER_X + 130, BORDER_Y + 265);
             Runner_2048.setDisplayWin(true);
             Runner_2048.setWonAlready(true);
+            gc.setFill(BORDER_COLOR.darker());
+            Button tryAgain = Runner_2048.TRY_AGAIN;
+            tryAgain.setY(BORDER_Y + 281);
+            gc.fillRoundRect(tryAgain.getX(), tryAgain.getY(), tryAgain.getW(), tryAgain.getH(), BORDER_RADIUS, BORDER_RADIUS);
+            gc.setFill(NUMBER_COLORS[4]);
+            gc.setFont(new Font("Calibri bold", tryAgain.getH() / 2));
+            gc.fillText("Restart", tryAgain.getX() + 25, tryAgain.getY() + 26);
         }
 
     }

@@ -54,13 +54,13 @@ public class Runner_2048 extends Application {
     public void start(Stage primaryStage) {
         g = new Graphics(new Grid(4, 4));
         //Square[][] test = {
-        //    {new Square(2), new Square(1024), null, null},
-        //    {new Square(512), null, new Square(256), null},
-        //    {new Square(256), null, new Square(128), null},
-        //    {new Square(256), null, null, null}
+        //    {new Square(2), new Square(128), new Square(256), new Square(32768)},
+        //    {new Square(2), new Square(64), new Square(512), new Square(16384)},
+        //    {new Square(4), new Square(32), new Square(1024), new Square(8192)},
+        //    {new Square(8), new Square(16), new Square(2048), new Square(4096)}
         //};
         //Grid temp = new Grid(4, 4);
-        //temp.setScore(999);
+        //temp.setScore(9999);
         //temp.setSquares(test);
         //g.setGrid(temp);
         StackPane root = new StackPane();
@@ -88,15 +88,14 @@ public class Runner_2048 extends Application {
 
         // Input handling
         scene.setOnMousePressed((MouseEvent event) -> {
-            double mX = event.getX() - root.getInsets().getLeft();
-            double mY = event.getY() - root.getInsets().getTop();
+            double mX = event.getX() - root.getInsets().getLeft() + 10;
+            double mY = event.getY() - root.getInsets().getTop() + 10;
             System.out.println(mX + ", " + mY);
             System.out.println(TRY_AGAIN);
 
-            if (TRY_AGAIN.inBounds(mX, mY) && g.getGrid().isGameOver()) {
+            if (TRY_AGAIN.inBounds(mX, mY) && (g.getGrid().isGameOver() || displayWin == true)) {
                 newGame();
             }
-
         });
 
         scene.setOnMouseDragged((MouseEvent event) -> {
@@ -175,6 +174,7 @@ public class Runner_2048 extends Application {
 
     public static void newGame() {
         wonAlready = false;
+        displayWin = false;
         frame = 0;
         g.setGrid(new Grid(4, 4));
     }
