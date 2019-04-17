@@ -57,6 +57,14 @@ public class Grid {
         squares[h2][w2] = new Square();
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public void setSquares(Square[][] s) {
         squares = s;
     }
@@ -103,8 +111,24 @@ public class Grid {
     }
 
     public void shiftRight() {
-        Square[][] before = squares.clone();
-        for (int r = 0; r < h; r++) {
+        Square[][] before = new Square[h][w];
+        int r_ = 0;
+        for (Square[] sl : squares) {
+            int c_ = 0;
+            for (Square s : sl) {
+                if (s == null) {
+                    before[r_][c_] = null;
+                } else {
+                    before[r_][c_] = new Square(s.getValue());
+                }
+                c_++;
+            }
+            r_++;
+        }
+
+        for (int r = 0;
+                r < h;
+                r++) {
             ArrayList<Square> row = new ArrayList<>();
             for (Square s : squares[r]) {
                 row.add(s);
@@ -117,7 +141,9 @@ public class Grid {
         }
         // check equality
         boolean same = true;
-        for (int _r = 0; _r < h; _r++) {
+        for (int _r = 0;
+                _r < h;
+                _r++) {
             for (int _c = 0; _c < w; _c++) {
                 if (before[_r][_c] == null) {
                     same = same && squares[_r][_c] == null;
@@ -150,7 +176,21 @@ public class Grid {
     }
 
     public void shiftLeft() {
-        Square[][] before = squares.clone();
+        Square[][] before = new Square[h][w];
+        int r_ = 0;
+        for (Square[] sl : squares) {
+            int c_ = 0;
+            for (Square s : sl) {
+                if (s == null) {
+                    before[r_][c_] = null;
+                } else {
+                    before[r_][c_] = new Square(s.getValue());
+                }
+                c_++;
+            }
+            r_++;
+        }
+
         for (int r = 0; r < h; r++) {
             ArrayList<Square> row = new ArrayList<>();
             for (Square s : squares[r]) {
@@ -173,7 +213,6 @@ public class Grid {
                 } else {
                     same = same && squares[_r][_c].getValue() == before[_r][_c].getValue();
                 }
-
             }
         }
         if (!same) {
@@ -197,7 +236,21 @@ public class Grid {
     }
 
     public void shiftDown() {
-        Square[][] before = squares.clone();
+        Square[][] before = new Square[h][w];
+        int r_ = 0;
+        for (Square[] sl : squares) {
+            int c_ = 0;
+            for (Square s : sl) {
+                if (s == null) {
+                    before[r_][c_] = null;
+                } else {
+                    before[r_][c_] = new Square(s.getValue());
+                }
+                c_++;
+            }
+            r_++;
+        }
+
         for (int c = 0; c < w; c++) {
             ArrayList<Square> col = new ArrayList<>();
             for (Square s : getColumn(c)) {
@@ -246,7 +299,21 @@ public class Grid {
     }
 
     public void shiftUp() {
-        Square[][] before = squares.clone();
+        Square[][] before = new Square[h][w];
+        int r_ = 0;
+        for (Square[] sl : squares) {
+            int c_ = 0;
+            for (Square s : sl) {
+                if (s == null) {
+                    before[r_][c_] = null;
+                } else {
+                    before[r_][c_] = new Square(s.getValue());
+                }
+                c_++;
+            }
+            r_++;
+        }
+
         for (int c = 0; c < w; c++) {
             ArrayList<Square> col = new ArrayList<>();
             for (Square s : getColumn(c)) {

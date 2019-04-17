@@ -3,7 +3,6 @@ package runner_2048;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -45,32 +44,37 @@ public class Runner_2048 extends Application {
 
         // Input handling
         scene.setOnMousePressed((MouseEvent event) -> {
-            newGame();
+
         });
 
-        scene.setOnMouseDragged(
-                (MouseEvent event) -> {
-                }
-        );
+        scene.setOnMouseDragged((MouseEvent event) -> {
 
-        scene.setOnMouseReleased(
-                (MouseEvent event) -> {
-                }
-        );
+        });
 
-        scene.setOnKeyPressed(
-                (KeyEvent eventa) -> {
-                    if (eventa.getCode() == KeyCode.RIGHT) {
+        scene.setOnMouseReleased((MouseEvent event) -> {
+
+        });
+
+        scene.setOnKeyPressed((KeyEvent eventa) -> {
+            if (null != eventa.getCode()) {
+                switch (eventa.getCode()) {
+                    case RIGHT:
                         g.getGrid().shiftRight();
-                    } else if (eventa.getCode() == KeyCode.LEFT) {
+                        break;
+                    case LEFT:
                         g.getGrid().shiftLeft();
-                    } else if (eventa.getCode() == KeyCode.UP) {
+                        break;
+                    case UP:
                         g.getGrid().shiftUp();
-                    } else if (eventa.getCode() == KeyCode.DOWN) {
+                        break;
+                    case DOWN:
                         g.getGrid().shiftDown();
-                    }
+                        break;
+                    default:
+                        break;
                 }
-        );
+            }
+        });
     }
 
     /**
