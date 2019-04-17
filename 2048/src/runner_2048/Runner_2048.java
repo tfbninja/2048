@@ -17,18 +17,56 @@ public class Runner_2048 extends Application {
     private static int frame = 0;
     private static Graphics g;
 
+    public static final Button TRY_AGAIN = new Button(Graphics.BORDER_X + 194, Graphics.BORDER_Y + 231, (Graphics.BORDER_SIZE / 2 - 194) * 2, 40);
+    public static boolean wonAlready = false;
+    public static boolean displayWin = false;
+
+    public static int getBestScore() {
+        return bestScore;
+    }
+
+    public static void setBestScore(int bestScore) {
+        Runner_2048.bestScore = bestScore;
+    }
+    public boolean keyUpU = true;
+    public boolean keyUpD = true;
+    public boolean keyUpL = true;
+    public boolean keyUpR = true;
+    public static int bestScore = 0;
+
+    public static boolean isDisplayWin() {
+        return displayWin;
+    }
+
+    public static void setDisplayWin(boolean displayWin) {
+        Runner_2048.displayWin = displayWin;
+    }
+
+    public static boolean isWonAlready() {
+        return wonAlready;
+    }
+
+    public static void setWonAlready(boolean wonAlready) {
+        Runner_2048.wonAlready = wonAlready;
+    }
+
     @Override
     public void start(Stage primaryStage) {
         g = new Graphics(new Grid(4, 4));
-        Square[][] test = {{new Square(), new Square(), new Square(), null}, {null, null, null, null}, {null, null, null, null}, {null, null, null, null}};
-        Grid temp = new Grid(4, 4);
-        temp.setSquares(test);
-        g.setGrid(temp);
+        //Square[][] test = {
+        //    {new Square(2), new Square(1024), null, null},
+        //    {new Square(512), null, new Square(256), null},
+        //    {new Square(256), null, new Square(128), null},
+        //    {new Square(256), null, null, null}
+        //};
+        //Grid temp = new Grid(4, 4);
+        //temp.setScore(999);
+        //temp.setSquares(test);
+        //g.setGrid(temp);
         StackPane root = new StackPane();
         root.getChildren().add(g.getCanvas());
 
-        Scene scene = new Scene(root, 600, 800);
-
+        Scene scene = new Scene(root, Graphics.BORDER_X + Graphics.BORDER_SIZE, Graphics.BORDER_Y + Graphics.BORDER_SIZE);
         primaryStage.setTitle("2048");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -37,6 +75,12 @@ public class Runner_2048 extends Application {
             @Override
             public void handle(long now) {
                 frame++;
+                if (!g.getGrid().isGameOver()) {
+                    g.getGrid().checkLost();
+                }
+                if (g.getGrid().getScore() > bestScore) {
+                    bestScore = g.getGrid().getScore();
+                }
                 g.draw();
             }
 
@@ -44,6 +88,14 @@ public class Runner_2048 extends Application {
 
         // Input handling
         scene.setOnMousePressed((MouseEvent event) -> {
+            double mX = event.getX() - root.getInsets().getLeft();
+            double mY = event.getY() - root.getInsets().getTop();
+            System.out.println(mX + ", " + mY);
+            System.out.println(TRY_AGAIN);
+
+            if (TRY_AGAIN.inBounds(mX, mY) && g.getGrid().isGameOver()) {
+                newGame();
+            }
 
         });
 
@@ -55,20 +107,57 @@ public class Runner_2048 extends Application {
 
         });
 
+        scene.setOnKeyReleased((KeyEvent eventa) -> {
+            if (null != eventa.getCode()) {
+                switch (eventa.getCode()) {
+                    case RIGHT:
+                        keyUpR = true;
+                        break;
+                    case LEFT:
+                        keyUpL = true;
+                        break;
+                    case UP:
+                        keyUpU = true;
+                        break;
+                    case DOWN:
+                        keyUpD = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
         scene.setOnKeyPressed((KeyEvent eventa) -> {
             if (null != eventa.getCode()) {
                 switch (eventa.getCode()) {
                     case RIGHT:
-                        g.getGrid().shiftRight();
+                        if (keyUpR) {
+                            g.getGrid().shiftRight();
+                            displayWin = false;
+                            keyUpR = false;
+                        }
                         break;
                     case LEFT:
-                        g.getGrid().shiftLeft();
+                        if (keyUpL) {
+                            g.getGrid().shiftLeft();
+                            displayWin = false;
+                            keyUpL = false;
+                        }
                         break;
                     case UP:
-                        g.getGrid().shiftUp();
+                        if (keyUpU) {
+                            g.getGrid().shiftUp();
+                            displayWin = false;
+                            keyUpU = false;
+                        }
                         break;
                     case DOWN:
-                        g.getGrid().shiftDown();
+                        if (keyUpD) {
+                            g.getGrid().shiftDown();
+                            displayWin = false;
+                            keyUpD = false;
+                        }
                         break;
                     default:
                         break;
@@ -85,6 +174,7 @@ public class Runner_2048 extends Application {
     }
 
     public static void newGame() {
+        wonAlready = false;
         frame = 0;
         g.setGrid(new Grid(4, 4));
     }

@@ -39,6 +39,16 @@ public class Square {
         value += other.value;
         return value;
     }
+
+    @Override
+    public Square clone() {
+        return new Square(value);
+    }
+
+    @Override
+    public String toString() {
+        return "Square{" + getValue() + "}";
+    }
 }
 
 /*
