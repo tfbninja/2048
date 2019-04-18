@@ -54,10 +54,10 @@ public class Runner_2048 extends Application {
     public void start(Stage primaryStage) {
         g = new Graphics(new Grid(4, 4));
         //Square[][] test = {
-        //    {new Square(2), new Square(128), new Square(256), new Square(32768)},
-        //    {new Square(2), new Square(64), new Square(512), new Square(16384)},
-        //    {new Square(4), new Square(32), new Square(1024), new Square(8192)},
-        //    {new Square(8), new Square(16), new Square(2048), new Square(4096)}
+        //    {new Square(2), new Square(2), new Square(2), null},
+        //    {new Square(2), new Square(2), new Square(2), new Square(2)},
+        //    {new Square(2), new Square(2), new Square(1024), new Square(8192)},
+        //    {null, null, null, new Square(4096)}
         //};
         //Grid temp = new Grid(4, 4);
         //temp.setScore(9999);

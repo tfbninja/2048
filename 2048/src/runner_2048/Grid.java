@@ -275,7 +275,9 @@ public class Grid {
                 for (Square s : squares[r]) {
                     row.add(s);
                 }
+                Collections.reverse(row);
                 removeAndDoubleDupes(row);
+                Collections.reverse(row);
                 squares[r] = new Square[squares[r].length];
                 for (int i = 0; i < row.size(); i++) {
                     squares[r][i] = row.get(i);
@@ -397,7 +399,9 @@ public class Grid {
                 for (Square s : getColumn(c)) {
                     col.add(s);
                 }
+                Collections.reverse(col);
                 removeAndDoubleDupes(col);
+                Collections.reverse(col);
                 for (int r = 0; r < h; r++) {
                     squares[r][c] = null;
                 }
