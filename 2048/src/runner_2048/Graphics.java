@@ -19,10 +19,10 @@ public class Graphics {
     public static final double BORDER_Y = EDGE_MARGIN + 187;
 
     public static final double BUTTON_MARGINS = 20;
-    public static final double[] NUMBER_X_ADD = {39, 27, 20, 12, 7, 7, 4};
-    public static final double[] NUMBER_Y_ADD = {22, 22, 25, 24, 29, 34, 35};
+    public static final double[] NUMBER_X_ADD = {39, 27, 20, 12, 7, 7, 4, 4, 5, 7};
+    public static final double[] NUMBER_Y_ADD = {22, 22, 25, 24, 29, 34, 35, 38, 39, 41};
     public static final double[] SCORE_X_ADD = {68, 60, 54, 45, 37, 30, 22, 15};
-    public static final double[] NUMBER_FONT_SIZE = {48, 48, 44, 40, 36, 30, 28};
+    public static final double[] NUMBER_FONT_SIZE = {48, 48, 44, 40, 36, 30, 28, 24, 21, 18};
     public static final double[] SCORE_FONT_SIZE = {30, 30, 30, 30, 30, 30, 30, 30, 25};
 
     public static final double BORDER_MARGIN = 15;
@@ -111,14 +111,14 @@ public class Graphics {
             gc.setFont(new Font("Calibri bold", SCORE_FONT_SIZE[String.valueOf(grid.getScore()).length() - 1]));
             gc.fillText(String.valueOf(grid.getScore()), BORDER_X + (BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS + SCORE_X_ADD[String.valueOf(grid.getScore()).length() - 1], 57 + EDGE_MARGIN);
         } catch (ArrayIndexOutOfBoundsException nigatoni) {
-            gc.setFont(new Font("Calibri bold", SCORE_FONT_SIZE[String.valueOf(grid.getScore()).length() - 1]));
+            gc.setFont(new Font("Calibri bold", SCORE_FONT_SIZE[SCORE_FONT_SIZE.length - 1]));
             gc.fillText(String.valueOf(grid.getScore()), BORDER_X + (BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS + SCORE_X_ADD[SCORE_X_ADD.length - 1], 57 + EDGE_MARGIN);
         }
         try {
             gc.setFont(new Font("Calibri bold", SCORE_FONT_SIZE[String.valueOf(Runner_2048.getBestScore()).length() - 1]));
             gc.fillText(String.valueOf(Runner_2048.getBestScore()), BORDER_X + ((BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS) * 2 + SCORE_X_ADD[String.valueOf(Runner_2048.getBestScore()).length() - 1], 57 + EDGE_MARGIN);
         } catch (ArrayIndexOutOfBoundsException fettuchine) {
-            gc.setFont(new Font("Calibri bold", SCORE_FONT_SIZE[String.valueOf(Runner_2048.getBestScore()).length() - 1]));
+            gc.setFont(new Font("Calibri bold", SCORE_FONT_SIZE[SCORE_FONT_SIZE.length - 1]));
             gc.fillText(String.valueOf(Runner_2048.getBestScore()), BORDER_X + ((BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS) * 2 + SCORE_X_ADD[SCORE_X_ADD.length - 1], 57 + EDGE_MARGIN);
         }
 
@@ -134,6 +134,9 @@ public class Graphics {
                     gc.fillRoundRect(BORDER_X + BORDER_MARGIN * (c + 1) + SQUARE_SIZE * c, BORDER_Y + BORDER_MARGIN * (r + 1) + SQUARE_SIZE * r, SQUARE_SIZE, SQUARE_SIZE, SQUARE_RADIUS, SQUARE_RADIUS);
                     try {
                         gc.setFill(NUMBER_COLORS[(int) (Math.log(s.getValue()) / Math.log(2))]);
+                        if (s.getValue() > 4096) {
+                            throw new ArrayIndexOutOfBoundsException("Red");
+                        }
                     } catch (ArrayIndexOutOfBoundsException e) {
                         gc.setFill(NUMBER_COLORS[3]);
                     }

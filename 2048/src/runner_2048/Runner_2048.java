@@ -21,18 +21,18 @@ public class Runner_2048 extends Application {
     public static boolean wonAlready = false;
     public static boolean displayWin = false;
 
-    public static int getBestScore() {
+    public static long getBestScore() {
         return bestScore;
     }
 
-    public static void setBestScore(int bestScore) {
+    public static void setBestScore(long bestScore) {
         Runner_2048.bestScore = bestScore;
     }
     public boolean keyUpU = true;
     public boolean keyUpD = true;
     public boolean keyUpL = true;
     public boolean keyUpR = true;
-    public static int bestScore = 0;
+    public static long bestScore = 0;
 
     public static boolean isDisplayWin() {
         return displayWin;
@@ -54,10 +54,10 @@ public class Runner_2048 extends Application {
     public void start(Stage primaryStage) {
         g = new Graphics(new Grid(4, 4));
         Square[][] startBlocks = {
-            {new Square(8388608), new Square(8388608), new Square(8388608), new Square(8388608)},
-            {new Square(8388608), new Square(8388608), new Square(8388608), new Square(8388608)},
-            {new Square(8388608), new Square(8388608), new Square(8388608), new Square(8388608)},
-            {new Square(8388608), new Square(8388608), new Square(8388608), new Square(8388608)}
+            {new Square(134217728), new Square(134217728), new Square(134217728), new Square(134217728)},
+            {new Square(134217728), new Square(134217728), new Square(134217728), new Square(134217728)},
+            {new Square(134217728), new Square(134217728), new Square(134217728), new Square(134217728)},
+            {new Square(134217728), new Square(134217728), new Square(134217728), new Square(134217728)}
         };
         Grid testGrid = new Grid(4, 4);
         testGrid.setScore(9999);
@@ -69,6 +69,7 @@ public class Runner_2048 extends Application {
         Scene scene = new Scene(root, Graphics.BORDER_X + Graphics.BORDER_SIZE, Graphics.BORDER_Y + Graphics.BORDER_SIZE);
         primaryStage.setTitle("2048");
         primaryStage.setScene(scene);
+        newGame();
         primaryStage.show();
 
         new AnimationTimer() {

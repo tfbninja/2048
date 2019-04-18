@@ -6,7 +6,7 @@ package runner_2048;
  */
 public class Square {
 
-    private int value;
+    private long value;
 
     public static int[] MIN_VALUES = {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4};
 
@@ -14,14 +14,14 @@ public class Square {
         value = MIN_VALUES[(int) (Math.random() * MIN_VALUES.length)];
     }
 
-    public Square(int value) {
+    public Square(long value) {
         this();
         if (value > MIN_VALUES[0]) {
             this.value = value;
         }
     }
 
-    public int getValue() {
+    public long getValue() {
         return value;
     }
 
@@ -35,7 +35,7 @@ public class Square {
         this.value *= 2;
     }
 
-    public int combine(Square other) {
+    public long combine(Square other) {
         value += other.value;
         return value;
     }

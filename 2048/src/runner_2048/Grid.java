@@ -15,7 +15,7 @@ public class Grid {
     private Square[][] squares;
     public int w;
     public int h;
-    private int score = 0;
+    private long score = 0;
     private boolean gameOver = false;
 
     public Grid(int w, int h) {
@@ -60,7 +60,7 @@ public class Grid {
         squares[h2][w2] = new Square();
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
@@ -135,7 +135,7 @@ public class Grid {
         }
     }
 
-    public boolean containsDupesInARowOrNull(ArrayList<Integer> list) {
+    public boolean containsDupesInARowOrNull(ArrayList<Long> list) {
         for (int i = 0; i < list.size() - 1; i++) {
             if (list.get(i) == null || list.get(i + 1) == null) {
                 return true;
@@ -149,7 +149,7 @@ public class Grid {
 
     public void checkLost() {
         for (int r = 0; r < h; r++) {
-            ArrayList<Integer> row = new ArrayList<>();
+            ArrayList<Long> row = new ArrayList<>();
             for (int c = 0; c < w; c++) {
                 if (squares[r][c] == null) {
                     return;
@@ -165,7 +165,7 @@ public class Grid {
             }
         }
         for (int c = 0; c < w; c++) {
-            ArrayList<Integer> col = new ArrayList<>();
+            ArrayList<Long> col = new ArrayList<>();
             for (int r = 0; r < h; r++) {
                 if (squares[r][c] == null) {
                     return;
@@ -180,7 +180,6 @@ public class Grid {
                 return;
             }
         }
-        System.out.println(Arrays.deepToString(squares));
         gameOver = true;
     }
 
@@ -197,7 +196,7 @@ public class Grid {
 
     public void shiftRight() {
         if (!gameOver) {
-            int[][] before = new int[h][w];
+            long[][] before = new long[h][w];
             int r_ = 0;
             for (Square[] sl : squares) {
                 int c_ = 0;
@@ -255,7 +254,7 @@ public class Grid {
 
     public void shiftLeft() {
         if (!gameOver) {
-            int[][] before = new int[h][w];
+            long[][] before = new long[h][w];
             int r_ = 0;
             for (Square[] sl : squares) {
                 int c_ = 0;
@@ -317,7 +316,7 @@ public class Grid {
 
     public void shiftDown() {
         if (!gameOver) {
-            int[][] before = new int[h][w];
+            long[][] before = new long[h][w];
             int r_ = 0;
             for (Square[] sl : squares) {
                 int c_ = 0;
@@ -379,7 +378,7 @@ public class Grid {
 
     public void shiftUp() {
         if (!gameOver) {
-            int[][] before = new int[h][w];
+            long[][] before = new long[h][w];
             int r_ = 0;
             for (Square[] sl : squares) {
                 int c_ = 0;
