@@ -31,11 +31,15 @@ public class Graphics {
     public static final double SQUARE_SIZE = 107;
     public static final double SQUARE_RADIUS = 12;
     public static final double NUMBER_HEIGHT = 37;
-
+    
+    public static final Button BEST_SCORE = new Button(BORDER_X + ((BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS) * 2, EDGE_MARGIN, (BORDER_SIZE - BUTTON_MARGINS * 2) / 3, (BORDER_SIZE - BUTTON_MARGINS * 2) / 6);
+    public static final Button SCORE = new Button(BORDER_X + (BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS, EDGE_MARGIN, (BORDER_SIZE - BUTTON_MARGINS * 2) / 3, (BORDER_SIZE - BUTTON_MARGINS * 2) / 6);
+    
     public static final Color BG_COLOR = Color.color(251 / 255.0, 248 / 255.0, 239 / 255.0);
     public static final Color DEATH_MESSAGE = Color.color(238 / 255.0, 228 / 255.0, 218 / 255.0, 0.73);
     public static final Color WIN_MESSAGE = Color.color(237 / 255.0, 194 / 255.0, 46 / 255.0, 0.5);
     public static final Color SCORE_COLOR = Color.color(243 / 255.0, 231 / 255.0, 217 / 255.0);
+    public static final Color RESTART_COLOR = Color.color(143 / 255.0, 122 / 255.0, 102 / 255.0);
     public static final Color BORDER_COLOR = Color.color(187 / 255.0, 173 / 255.0, 160 / 255.0);
     public static final Color[] NUMBER_BGCOLORS = {Color.color(205 / 255.0, 193 / 255.0, 180 / 255.0), // null
         Color.color(238 / 255.0, 228 / 255.0, 218 / 255.0), // 2
@@ -97,9 +101,9 @@ public class Graphics {
 
         gc.setFill(BORDER_COLOR);
         // score
-        gc.fillRoundRect(BORDER_X + (BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS, EDGE_MARGIN, (BORDER_SIZE - BUTTON_MARGINS * 2) / 3, (BORDER_SIZE - BUTTON_MARGINS * 2) / 6, BORDER_RADIUS, BORDER_RADIUS);
+        gc.fillRoundRect(SCORE.getX(), SCORE.getY(), SCORE.getW(), SCORE.getH(), BORDER_RADIUS, BORDER_RADIUS);
         // best
-        gc.fillRoundRect(BORDER_X + ((BORDER_SIZE - BUTTON_MARGINS * 2) / 3 + BUTTON_MARGINS) * 2, EDGE_MARGIN, (BORDER_SIZE - BUTTON_MARGINS * 2) / 3, (BORDER_SIZE - BUTTON_MARGINS * 2) / 6, BORDER_RADIUS, BORDER_RADIUS);
+        gc.fillRoundRect(BEST_SCORE.getX(), BEST_SCORE.getY(), BEST_SCORE.getW(), BEST_SCORE.getH(), BORDER_RADIUS, BORDER_RADIUS);
 
         gc.setFill(SCORE_COLOR);
         gc.setFont(new Font("Calibri bold", 25));
@@ -157,6 +161,13 @@ public class Graphics {
                 c++;
             }
         }
+
+        gc.setFill(RESTART_COLOR);
+        Button r = Runner_2048.RESTART;
+        gc.fillRoundRect(r.getX(), r.getY(), r.getW(), r.getH(), BORDER_RADIUS, BORDER_RADIUS);
+        gc.setFill(SCORE_COLOR);
+        gc.setFont(new Font("Calibri bold", 30));
+        gc.fillText(r.getState(), r.getX() + 21 + (7 - r.getState().length()) * 8, r.getY() + 38);
         if (grid.isGameOver()) {
             gc.setFill(DEATH_MESSAGE);
             gc.fillRoundRect(BORDER_X, BORDER_Y, BORDER_SIZE, BORDER_SIZE, BORDER_RADIUS, BORDER_RADIUS);

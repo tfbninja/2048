@@ -11,6 +11,7 @@ public class Button {
     private double w;
     private double h;
     private double scale;
+    private String state; // optional variable
 
     /**
      * Default, sets everything to 0
@@ -21,6 +22,14 @@ public class Button {
         this.w = 0;
         this.h = 0;
         this.scale = 1;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     /**
@@ -37,13 +46,30 @@ public class Button {
         this.h = h;
         this.scale = 1;
     }
+    
+    /**
+     *
+     * @param x top left x coordinate
+     * @param y top left y coordinate
+     * @param w width
+     * @param h height
+     * @param state
+     */
+    public Button(double x, double y, double w, double h, String state) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.scale = 1;
+        this.state = state;
+    }
 
     /**
      *
-     * @param x     top left x coordinate
-     * @param y     top left y coordinate
-     * @param w     width
-     * @param h     height
+     * @param x top left x coordinate
+     * @param y top left y coordinate
+     * @param w width
+     * @param h height
      * @param scale scale
      */
     public Button(double x, double y, double w, double h, double scale) {
