@@ -18,6 +18,7 @@ public class Runner_2048 extends Application {
     private static int frame = 0;
     private static Graphics g;
     private static String[] lastKeys = new String[11];
+    private int eecount = 0;
     
     public static final Button TRY_AGAIN = new Button(Graphics.BORDER_X + 194, Graphics.BORDER_Y + 231, (Graphics.BORDER_SIZE / 2 - 194) * 2, 40);
     public static final Button RESTART = new Button(Graphics.BEST_SCORE.getX(), Graphics.BEST_SCORE.getY() + Graphics.BEST_SCORE.getH() + 20, Graphics.BEST_SCORE.getW(), 60, "RESTART");
@@ -146,11 +147,12 @@ public class Runner_2048 extends Application {
                 for (int i = 0; i < lastKeys.length - 1; i++) {
                     lastKeys[i] = lastKeys[i + 1];
                 }
-                lastKeys[lastKeys.length - 1] = eventa.getText();
+                lastKeys[lastKeys.length - 1] = eventa.getCode().getName().toUpperCase();
                 String[] special = {"UP", "UP", "DOWN", "DOWN", "LEFT", "RIGHT", "LEFT", "RIGHT", "B", "A", "ENTER"};
-                System.out.println(Arrays.deepToString(lastKeys));
-                if (lastKeys.equals(special)) {
-                    g.getGrid().setScore((int) g.getGrid().getScore() + 500);
+                //System.out.println(Arrays.deepToString(lastKeys));
+                if (Arrays.equals(lastKeys, special)) {
+                    eecount++;
+                    g.getGrid().setScore((int) g.getGrid().getScore() + (500 / eecount));
                 }
                 switch (eventa.getCode()) {
                     case D:
